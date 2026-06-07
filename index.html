@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html class="light scroll-smooth" lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>GOGORO 租車 - 城市智能出行</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config from Brand Anchors -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-primary": "#38e433",
+                        "on-surface": "#191c1d",
+                        "secondary": "#2e5ea5",
+                        "tertiary-fixed-dim": "#7dd0ff",
+                        "outline-variant": "#bbcbb2",
+                        "on-primary-fixed": "#002201",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed": "#76ff65",
+                        "outline": "#6c7b66",
+                        "surface-tint": "#006e06",
+                        "on-primary-fixed-variant": "#005303",
+                        "on-primary-container": "#005903",
+                        "on-background": "#191c1d",
+                        "background": "#f8f9fa",
+                        "surface-container-highest": "#e1e3e4",
+                        "primary-fixed-dim": "#38e433",
+                        "on-tertiary-fixed-variant": "#004c69",
+                        "secondary-fixed": "#d6e3ff",
+                        "primary": "#006e06",
+                        "tertiary-container": "#59c7ff",
+                        "surface-container-low": "#f3f4f5",
+                        "primary-container": "#1fb81f",
+                        "on-surface-variant": "#3d4b38",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface-container": "#edeeef",
+                        "surface-variant": "#e1e3e4",
+                        "surface": "#f8f9fa",
+                        "inverse-surface": "#2e3132",
+                        "on-secondary-fixed": "#001b3e",
+                        "on-tertiary-container": "#005170",
+                        "secondary-container": "#86b1fe",
+                        "surface-bright": "#f8f9fa",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#00658b",
+                        "surface-dim": "#d9dadb",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-tertiary-fixed": "#001e2d",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#aac7ff",
+                        "on-secondary-container": "#004287",
+                        "surface-container-high": "#e7e8e9",
+                        "on-secondary-fixed-variant": "#08458b",
+                        "tertiary-fixed": "#c4e7ff",
+                        "on-error": "#ffffff",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "lg": "48px",
+                        "base": "8px",
+                        "xl": "80px",
+                        "md": "24px",
+                        "xs": "4px",
+                        "sm": "12px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Plus Jakarta Sans"],
+                        "body-sm": ["Plus Jakarta Sans"],
+                        "headline-md": ["Montserrat"],
+                        "headline-lg": ["Montserrat"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-sm": ["Montserrat"],
+                        "headline-lg-mobile": ["Montserrat"],
+                        "body-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["28px", {"lineHeight": "34px", "fontWeight": "600"}],
+                        "headline-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-sm": ["20px", {"lineHeight": "26px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Level 2 Elevation (Interactive) */
+        .shadow-elevation-2 {
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.04);
+        }
+        /* Custom Input Styles based on Design System */
+        .input-brand {
+            background-color: theme('colors.surface-container-lowest');
+            border-color: theme('colors.surface-container-highest');
+            transition: all 0.2s ease;
+        }
+        .input-brand:focus {
+            border-color: theme('colors.secondary');
+            box-shadow: 0 0 0 2px theme('colors.tertiary-fixed');
+            outline: none;
+        }
+        .rainbow-hover {
+            position: relative;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            z-index: 1;
+            background-color: transparent !important;
+        }
+        .rainbow-hover::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-color: white;
+            border-radius: 9999px;
+            z-index: -1;
+        }
+        .rainbow-hover::before {
+            content: '';
+            position: absolute;
+            top: -2px; right: -2px; bottom: -2px; left: -2px;
+            background: linear-gradient(90deg, #ff9a9e, #fecfef, #f6e58d, #c7ecee, #a29bfe, #fd79a8);
+            background-size: 200% auto;
+            border-radius: 9999px;
+            z-index: -2;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            filter: blur(2px);
+        }
+        .rainbow-hover:hover::before {
+            opacity: 1;
+            animation: rainbowBorder 2s linear infinite;
+        }
+        @keyframes rainbowBorder {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+        .rainbow-hover:hover {
+            transform: scale(1.02);
+            border-color: transparent;
+        }
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        .slide-in-left {
+            animation: slideInLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        .slide-card {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body class="text-on-surface font-body-md antialiased min-h-screen flex flex-col bg-surface-container-lowest" style="background-color: rgb(255, 255, 255);">
+    
+<nav class="sticky top-0 z-50 bg-surface border-b border-surface-container-highest shadow-sm w-full">
+<div class="flex justify-between items-center px-md lg:px-xl h-20 w-full max-w-container-max mx-auto">
+<a class="font-headline-sm text-headline-sm font-bold text-primary flex items-center gap-xs tracking-tight hover:opacity-80 transition-opacity" href="#">
+<img alt="GOGORO 租車" class="h-[40px] w-auto object-contain rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDt9qvrLHv4qAs14PzmzPYaqtc1z0x92YCjxQ24-eTH7BqZ6BIDlC-tuQrMrZVy_REusiAB7e95XuJcKWAdHSq78203Frs4H4IJ5yrMXuZKTDep5vOo6YS8kSLxD5flD5UALSKcstPNmJdSjN6HbiCQvrclwuCDvBxlLzSt6V7Lwn1C_JIict_iXOVt7QkSaAfW-ddho_psLV4H6IevR6dWgsCHoD2IQEDfzEWCfLGU8COTGJxuq4BUG_g6-piJY4SNxGiXs1Du8Ks">
+</a>
+<div class="hidden md:flex items-center gap-md font-body-md text-body-md absolute left-1/2 -translate-x-1/2">
+<a class="text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-low duration-200 px-sm py-xs rounded-DEFAULT font-medium" href="#">首頁</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-low duration-200 px-sm py-xs rounded-DEFAULT font-medium" href="#models">車款介紹</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-low duration-200 px-sm py-xs rounded-DEFAULT font-medium" href="#locations">服務據點</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-low duration-200 px-sm py-xs rounded-DEFAULT font-medium" href="#contact">聯絡我們</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-low duration-200 px-sm py-xs rounded-DEFAULT font-medium" href="#faq">常見問題</a>
+</div>
+<div class="flex items-center space-x-md">
+<a href="https://line.me/ti/p/~@dt2018" target="_blank" class="bg-white border border-outline-variant text-on-surface font-body-md text-body-md font-bold px-6 py-sm rounded-full shadow-sm flex items-center justify-center rainbow-hover">
+立即預約
+</a>
+<button onclick="window.location.href='en.html'" class="bg-surface-container-lowest border border-outline-variant text-on-surface font-body-md text-body-md font-bold px-sm py-sm rounded-lg hover:scale-95 transition-transform duration-100 shadow-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-[20px]">language</span> EN
+</button>
+<button class="md:hidden text-on-surface p-sm rounded-full hover:bg-surface-container-low transition-all duration-200">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</nav>
+
+    <main class="flex-grow">
+        <div id="hero" class="relative">
+            
+<!-- Hero Section (Full Width Image) -->
+<section class="w-full sticky top-20 h-[60vh] md:h-[80vh] overflow-hidden -z-10">
+<img src="dt1.jpg" alt="DT租車 藍晒圖店" class="w-full h-full object-cover">
+</section>
+<!-- Bento Grid Value Proposition -->
+<section class="bg-surface-container-low dark:bg-surface-dim py-xl lg:py-[100px] relative z-10">
+<div class="w-full max-w-container-max mx-auto px-md lg:px-xl">
+<div class="mb-xl text-left w-full">
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface mb-sm">ABOUT US</h2>
+<p class="font-body-md text-on-surface-variant max-w-2xl">合理優惠的價格，享更透明安心的服務。</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-md lg:gap-lg">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-md border border-surface-container-highest flex flex-col items-start hover:-translate-y-1 transition-transform duration-300">
+<div class="w-12 h-12 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center mb-md hover:scale-110 duration-300 transition-transform">
+<span class="material-symbols-outlined text-headline-md">electric_moped</span>
+</div>
+<h3 class="font-headline-sm font-bold text-on-surface mb-xs">Gogoro 雙電池車款</h3>
+<p class="font-body-sm text-on-surface-variant leading-relaxed">車型都是gogoro雙電池車款（同125cc動力充足）。</p>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-md border border-surface-container-highest flex flex-col items-start hover:-translate-y-1 transition-transform duration-300">
+<div class="w-12 h-12 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center mb-md hover:scale-110 duration-300 transition-transform">
+<span class="material-symbols-outlined text-headline-md">route</span>
+</div>
+<h3 class="font-headline-sm font-bold text-on-surface mb-xs">大台南不限里程</h3>
+<p class="font-body-sm text-on-surface-variant leading-relaxed"></p>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest rounded-xl p-md border border-surface-container-highest flex flex-col items-start hover:-translate-y-1 transition-transform duration-300">
+<div class="w-12 h-12 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center mb-md hover:scale-110 duration-300 transition-transform">
+<span class="material-symbols-outlined text-headline-md">support_agent</span>
+</div>
+<h3 class="font-headline-sm font-bold text-on-surface mb-xs">門市專人服務教學</h3>
+<p class="font-body-sm text-on-surface-variant leading-relaxed">有問題即刻回覆處理。</p>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container-lowest rounded-xl p-md border border-surface-container-highest flex flex-col items-start hover:-translate-y-1 transition-transform duration-300">
+<div class="w-12 h-12 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center mb-md hover:scale-110 duration-300 transition-transform">
+<span class="material-symbols-outlined text-headline-md">id_card</span>
+</div>
+<h3 class="font-headline-sm font-bold text-on-surface mb-xs">免押任何證件</h3>
+<p class="font-body-sm text-on-surface-variant leading-relaxed">確認普通重型機車駕照即可。</p>
+</div>
+<!-- Card 5 -->
+<div class="bg-surface-container-lowest rounded-xl p-md border border-surface-container-highest flex flex-col items-start hover:-translate-y-1 transition-transform duration-300">
+<div class="w-12 h-12 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center mb-md hover:scale-110 duration-300 transition-transform">
+<span class="material-symbols-outlined text-headline-md">cleaning_services</span>
+</div>
+<h3 class="font-headline-sm font-bold text-on-surface mb-xs">車輛每日清潔檢查</h3>
+<p class="font-body-sm text-on-surface-variant leading-relaxed">車況優良穩定有保障。</p>
+</div>
+<!-- Card 6 -->
+<div class="bg-surface-container-lowest rounded-xl p-md border border-surface-container-highest flex flex-col items-start hover:-translate-y-1 transition-transform duration-300">
+<div class="w-12 h-12 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center mb-md hover:scale-110 duration-300 transition-transform">
+<span class="material-symbols-outlined text-headline-md">shield</span>
+</div>
+<h3 class="font-headline-sm font-bold text-on-surface mb-xs">車損安心方案</h3>
+<p class="font-body-sm text-on-surface-variant leading-relaxed">有提供車損安心方案，只要加購100元，出遊更放心。</p>
+</div>
+<!-- Card 7 -->
+<div class="bg-surface-container-lowest rounded-xl p-md border border-surface-container-highest flex flex-col items-start hover:-translate-y-1 transition-transform duration-300">
+<div class="w-12 h-12 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center mb-md hover:scale-110 duration-300 transition-transform">
+<span class="material-symbols-outlined text-headline-md">sports_motorsports</span>
+</div>
+<h3 class="font-headline-sm font-bold text-on-surface mb-xs">安全帽每日殺菌</h3>
+<p class="font-body-sm text-on-surface-variant leading-relaxed">每日殺菌的安全帽及一次性帽墊+帽襯，衛生看得見。</p>
+</div>
+<!-- Card 9 -->
+<div class="bg-surface-container-lowest rounded-xl p-md border border-surface-container-highest flex flex-col items-start hover:-translate-y-1 transition-transform duration-300">
+<div class="w-12 h-12 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center mb-md hover:scale-110 duration-300 transition-transform">
+<span class="material-symbols-outlined text-headline-md">event_available</span>
+</div>
+<h3 class="font-headline-sm font-bold text-on-surface mb-xs">預約租車免煩惱</h3>
+<p class="font-body-sm text-on-surface-variant leading-relaxed">預約租車不用擔心尖峰假期找不到車，免花時間找車。</p>
+</div>
+</div>
+</div>
+</section>
+
+        </div>
+        <div id="fleet" class="pt-20 -mt-20"> <!-- offset for sticky nav -->
+<!-- Pricing Section (Bento Grid Style) -->
+<section class="w-full bg-surface-container-low py-xl border-t border-surface-container-highest">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-lg items-center max-w-container-max mx-auto px-md lg:px-xl">
+<div class="lg:col-span-5 mb-lg lg:mb-0 text-left w-full">
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface mb-sm">透明定價</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">單一費率。無隱藏費用。包含充電費。</p>
+</div>
+<div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-md w-full">
+<!-- Daily Standard -->
+<div class="bg-surface-container-lowest border border-primary-container rounded-xl p-4 flex flex-col items-center text-center relative overflow-hidden shadow-[0px_4px_20px_rgba(0,0,0,0.04)] hover:scale-105 transition-all duration-300">
+<div class="absolute top-0 left-0 w-full h-1 bg-primary"></div>
+<span class="absolute top-2 right-2 text-white text-[10px] font-bold bg-primary-container px-2 py-1 rounded-full">一般客</span>
+<span class="material-symbols-outlined text-primary mb-2 text-[24px]">today</span>
+<h3 class="font-body-md text-body-md text-on-surface-variant mb-1">日租費用</h3>
+<div class="text-2xl font-bold text-on-surface">$700</div>
+<p class="text-xs text-on-surface-variant mt-3 border-t border-surface-container-high w-full pt-3">包含強制險。</p>
+</div>
+<!-- Partner Hotel -->
+<div class="bg-surface-container-lowest border border-secondary rounded-xl p-4 flex flex-col items-center text-center hover:scale-105 transition-all duration-300 relative overflow-hidden shadow-[0px_4px_20px_rgba(0,0,0,0.04)]">
+<div class="absolute top-0 left-0 w-full h-1 bg-secondary"></div>
+<span class="absolute top-2 right-2 text-white text-[10px] font-bold bg-secondary-container px-2 py-1 rounded-full">專屬優惠</span>
+<span class="material-symbols-outlined text-secondary mb-2 text-[24px]">hotel</span>
+<h3 class="font-body-md text-body-md text-on-surface-variant mb-1">特約飯店</h3>
+<div class="text-2xl font-bold text-on-surface">$600</div>
+<p class="text-xs text-on-surface-variant mt-3 border-t border-surface-container-high w-full pt-3">入住特約飯店即可享優惠價格。</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Hero Section -->
+<section id="models" class="scroll-mt-20 w-full max-w-container-max mx-auto px-md lg:px-xl pt-xl pb-xl flex flex-col">
+    <!-- Title -->
+    <div class="text-left mb-lg w-full">
+        <h1 class="font-headline-md text-headline-md font-bold text-on-surface mb-sm w-full">Gogoro 2 系列介紹</h1>
+        <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl w-full">經典熱銷，都會通勤的完美選擇。</p>
+    </div>
+    
+    <!-- Cards Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-lg items-stretch w-full">
+        <!-- Left: Photo Card -->
+        <div class="lg:col-span-5 w-full flex">
+            <article class="w-full bg-surface-container-lowest border border-surface-container-highest rounded-[16px] p-md flex flex-col transition-all duration-300 hover:shadow-[0px_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-1 group">
+                <div class="w-full aspect-[4/3] rounded-lg bg-surface-container-low mb-md overflow-hidden relative">
+                    <img alt="Gogoro 2 scooter" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="dt2.jpg">
+                </div>
+                <div class="flex-grow flex flex-col text-center">
+                    <h2 class="font-headline-md text-headline-md text-on-surface mb-sm">Gogoro 2</h2>
+                    <p class="font-body-md text-body-md text-on-surface-variant">Gogoro 2 系列擁有絕佳的騎乘體驗與續航力，無論是日常通勤還是城市探索，都能給您最舒適的旅程。</p>
+                </div>
+            </article>
+        </div>
+        
+        <!-- Right: 3 Feature Cards -->
+        <div class="lg:col-span-7 flex flex-col gap-md">
+            <!-- Feature 1 -->
+            <div class="slide-card flex-1 bg-surface-container-lowest rounded-xl p-md border border-surface-container-highest flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-md hover:-translate-y-1 transition-transform duration-300">
+                <div class="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex-shrink-0 flex items-center justify-center hover:scale-110 duration-300 transition-transform">
+                    <span class="material-symbols-outlined text-headline-md">battery_charging_full</span>
+                </div>
+                <div class="flex flex-col justify-center h-full">
+                    <h3 class="font-headline-sm font-bold text-on-surface mb-xs">無限續航</h3>
+                    <p class="font-body-sm text-on-surface-variant leading-relaxed">在全市數百個 GoStation 數秒內換電。再也不用等待充電。</p>
+                </div>
+            </div>
+            <!-- Feature 2 -->
+            <div class="slide-card flex-1 bg-surface-container-lowest rounded-xl p-md border border-surface-container-highest flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-md hover:-translate-y-1 transition-transform duration-300">
+                <div class="w-12 h-12 rounded-full bg-secondary-container text-on-secondary-container flex-shrink-0 flex items-center justify-center hover:scale-110 duration-300 transition-transform">
+                    <span class="material-symbols-outlined text-headline-md">luggage</span>
+                </div>
+                <div class="flex flex-col justify-center h-full">
+                    <h3 class="font-headline-sm font-bold text-on-surface mb-xs">大車廂空間</h3>
+                    <p class="font-body-sm text-on-surface-variant leading-relaxed">超大置物空間，輕鬆容納兩頂半罩安全帽與隨身物品，滿足您的收納需求。</p>
+                </div>
+            </div>
+            <!-- Feature 3 -->
+            <div class="slide-card flex-1 bg-surface-container-lowest rounded-xl p-md border border-surface-container-highest flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-md hover:-translate-y-1 transition-transform duration-300">
+                <div class="w-12 h-12 rounded-full bg-tertiary-container text-on-tertiary-container flex-shrink-0 flex items-center justify-center hover:scale-110 duration-300 transition-transform">
+                    <span class="material-symbols-outlined text-headline-md">nature_people</span>
+                </div>
+                <div class="flex flex-col justify-center h-full">
+                    <h3 class="font-headline-sm font-bold text-on-surface mb-xs">零排放</h3>
+                    <p class="font-body-sm text-on-surface-variant leading-relaxed">安心騎乘。我們的全電動車隊確保您的通勤不留碳足跡。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+        </div>
+        <div id="how-it-works" class="pt-20 -mt-20">
+
+<!-- Requirements & Safety -->
+<section class="py-md max-w-container-max mx-auto px-md lg:px-xl">
+<div class="mb-lg text-left w-full">
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface mb-sm">租借要求與安全</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">在您安全上路前需要了解的所有資訊。</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Req 1 -->
+<div class="bg-surface-container-lowest border border-surface-container-highest rounded-xl p-md flex flex-col items-center text-center">
+<div class="w-16 h-16 bg-surface-container-low rounded-full flex items-center justify-center mb-sm border border-surface-container-high">
+<span class="material-symbols-outlined text-secondary text-3xl" style="font-variation-settings: 'FILL' 0;">id_card</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-xs">有效駕照</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">租借需要有效的當地普通重型機車駕照或認可的國際駕照。</p>
+</div>
+<!-- Req 2 -->
+<div class="bg-surface-container-lowest border border-surface-container-highest rounded-xl p-md flex flex-col items-center text-center">
+<div class="w-16 h-16 bg-surface-container-low rounded-full flex items-center justify-center mb-sm border border-surface-container-high">
+<span class="material-symbols-outlined text-secondary text-3xl" style="font-variation-settings: 'FILL' 0;">cake</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-xs">年齡限制</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">騎乘者必須年滿 18 歲。首次租借者可能需要進行額外驗證。</p>
+</div>
+<!-- Req 3 -->
+<div class="bg-surface-container-lowest border border-surface-container-highest rounded-xl p-md flex flex-col items-center text-center">
+<div class="w-16 h-16 bg-surface-container-low rounded-full flex items-center justify-center mb-sm border border-surface-container-high">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 0;">sports_motorsports</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-xs">提供安全帽</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">安全第一。每輛租賃車輛的皆附有兩頂經過消毒且符合 DOT 認證的安全帽。</p>
+</div>
+</div>
+</section>
+
+        </div>
+        <div id="locations" class="pt-20 -mt-20">
+            <div class="w-full max-w-container-max mx-auto px-md lg:px-xl py-lg lg:py-xl">
+<!-- Header Section -->
+<div class="mb-lg text-left w-full">
+<h1 class="font-headline-md text-headline-md font-bold text-on-surface mb-sm">門市據點</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">前往門市由專人為您服務。</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-lg items-start">
+<!-- Map & Locations -->
+<div class="lg:col-span-12 flex flex-col gap-lg">
+<!-- Interactive Map Container -->
+<div class="relative w-full h-[400px] lg:h-[500px] bg-surface-container-low rounded-xl overflow-hidden shadow-sm border border-surface-container-highest group">
+<iframe src="https://maps.google.com/maps?q=DT租車-藍晒圖店&t=&z=17&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen class="w-full h-full border-0"></iframe>
+<!-- Decorative Map UI Overlay -->
+<div class="absolute top-md left-md bg-surface-container-lowest/90 backdrop-blur-sm px-sm py-xs rounded-lg border border-surface-container-highest shadow-sm flex items-center gap-xs pointer-events-none">
+<span class="material-symbols-outlined text-[18px] text-primary">my_location</span>
+<span class="font-label-md text-label-md text-on-surface">台南市南區</span>
+</div>
+</div>
+<!-- Locations List -->
+<div class="flex flex-col gap-sm">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-sm">門市資訊</h2>
+<!-- Location Card 1 -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-surface-container-highest hover:shadow-[0px_4px_20px_rgba(0,0,0,0.04)] transition-shadow duration-300 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-md hover:scale-[1.02] transition-transform">
+<div class="flex flex-col gap-sm">
+<div class="flex items-center gap-sm">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">DT租車-藍晒圖店</h3>
+
+</div>
+<div class="flex flex-col gap-xs">
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-start gap-xs max-w-md">
+<span class="material-symbols-outlined text-[16px] text-secondary mt-[2px]">location_on</span>
+                                臺南市南區永華路一段 5 號
+                            </p>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-start gap-xs max-w-md">
+<span class="material-symbols-outlined text-[16px] text-secondary mt-[2px]">phone</span>
+                                06-223-8528
+                            </p>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-start gap-xs max-w-md">
+<span class="material-symbols-outlined text-[16px] text-secondary mt-[2px]">schedule</span>
+                                每日 09:00 – 21:00
+                            </p>
+</div>
+</div>
+<a href="https://www.google.com/maps/place/DT%E7%A7%9F%E8%BB%8A-%E8%97%8D%E6%99%92%E5%9C%96%E5%BA%97/@22.9873011,120.1946596,17z" target="_blank" class="border border-secondary text-secondary font-body-sm text-body-sm font-semibold px-md py-sm rounded-lg hover:bg-secondary/5 transition-colors whitespace-nowrap w-full sm:w-auto text-center inline-block">
+                            導航前往
+                        </a>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+        </div>
+<!-- Contact Section -->
+<div id="contact" class="w-full max-w-container-max mx-auto px-md lg:px-xl py-xl">
+    <div class="mb-lg text-left w-full">
+        <h2 class="font-headline-md text-headline-md font-bold text-on-surface mb-sm">聯絡我們</h2>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-md lg:gap-lg max-w-6xl mx-auto">
+        <!-- LINE -->
+        <a href="https://line.me/ti/p/~@dt2018" target="_blank" class="bg-surface-container-lowest border border-[#00B900] rounded-xl p-md flex flex-col items-center text-center hover:bg-[#00B900]/10 hover:-translate-y-1 transition-all duration-300">
+            <div class="w-12 h-12 bg-[#00B900] text-white rounded-full flex items-center justify-center mb-sm shadow-sm">
+                <span class="material-symbols-outlined text-[24px]">chat</span>
+            </div>
+            <h3 class="font-headline-sm text-on-surface mb-xs text-[18px]">LINE 官方帳號</h3>
+            <p class="font-body-sm text-on-surface-variant">點擊加入好友即刻諮詢</p>
+        </a>
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/dt.tainan" target="_blank" class="bg-surface-container-lowest border border-[#E1306C] rounded-xl p-md flex flex-col items-center text-center hover:bg-[#E1306C]/10 hover:-translate-y-1 transition-all duration-300">
+            <div class="w-12 h-12 bg-gradient-to-tr from-[#F56040] via-[#E1306C] to-[#833AB4] text-white rounded-full flex items-center justify-center mb-sm shadow-sm">
+                <span class="material-symbols-outlined text-[24px]">photo_camera</span>
+            </div>
+            <h3 class="font-headline-sm text-on-surface mb-xs text-[18px]">Instagram</h3>
+            <p class="font-body-sm text-on-surface-variant">追蹤我們的日常分享</p>
+        </a>
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/dt.tainan" target="_blank" class="bg-surface-container-lowest border border-[#1877F2] rounded-xl p-md flex flex-col items-center text-center hover:bg-[#1877F2]/10 hover:-translate-y-1 transition-all duration-300">
+            <div class="w-12 h-12 bg-[#1877F2] text-white rounded-full flex items-center justify-center mb-sm shadow-sm">
+                <span class="material-symbols-outlined text-[24px]">thumb_up</span>
+            </div>
+            <h3 class="font-headline-sm text-on-surface mb-xs text-[18px]">Facebook 粉絲專頁</h3>
+            <p class="font-body-sm text-on-surface-variant">追蹤最新活動與動態</p>
+        </a>
+        <!-- Phone -->
+        <a href="tel:062238528" class="bg-surface-container-lowest border border-secondary rounded-xl p-md flex flex-col items-center text-center hover:bg-secondary/10 hover:-translate-y-1 transition-all duration-300">
+            <div class="w-12 h-12 bg-secondary text-white rounded-full flex items-center justify-center mb-sm shadow-sm">
+                <span class="material-symbols-outlined text-[24px]">phone</span>
+            </div>
+            <h3 class="font-headline-sm text-on-surface mb-xs text-[18px]">服務專線</h3>
+            <p class="font-body-sm text-on-surface-variant">06-223-8528</p>
+        </a>
+    </div>
+</div>
+<div id="faq" class="pt-20 -mt-20">
+<!-- FAQ Section (Accordion) -->
+<section class="max-w-container-max mx-auto px-md lg:px-xl w-full mb-lg">
+<div class="mb-lg text-left w-full">
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface mb-sm">常見問題</h2>
+</div>
+<div class="flex flex-col gap-sm max-w-4xl">
+<!-- Accordion Item 1 -->
+<div class="bg-surface-container-lowest border border-surface-container-highest rounded-lg overflow-hidden transition-all duration-200">
+<button class="w-full px-md py-sm flex justify-between items-center text-left hover:bg-surface-container-low transition-colors" onclick="toggleAccordion(this)">
+<span class="font-headline-sm text-headline-sm text-on-surface text-[18px]">換電需要付費嗎？</span>
+<span class="material-symbols-outlined text-on-surface-variant transition-transform duration-300">expand_more</span>
+</button>
+<div class="px-md pb-sm hidden text-on-surface-variant font-body-sm text-body-sm">
+                        不需要，租金已包含在任何 GoStation 的無限次換電。您無需支付額外的換電費用。
+                    </div>
+</div>
+<!-- Accordion Item 2 -->
+<div class="bg-surface-container-lowest border border-surface-container-highest rounded-lg overflow-hidden transition-all duration-200">
+<button class="w-full px-md py-sm flex justify-between items-center text-left hover:bg-surface-container-low transition-colors" onclick="toggleAccordion(this)">
+<span class="font-headline-sm text-headline-sm text-on-surface text-[18px]">租車需要準備什麼證件？如果我是外國旅客呢？</span>
+<span class="material-symbols-outlined text-on-surface-variant transition-transform duration-300">expand_more</span>
+</button>
+<div class="px-md pb-sm hidden text-on-surface-variant font-body-sm text-body-sm">
+                        本國旅客請務必攜帶本人的「普通重型機車駕照」，外籍旅客請準備「國際駕駛執照（A類）」
+                    </div>
+</div>
+<!-- Accordion Item 3 -->
+<div class="bg-surface-container-lowest border border-surface-container-highest rounded-lg overflow-hidden transition-all duration-200">
+<button class="w-full px-md py-sm flex justify-between items-center text-left hover:bg-surface-container-low transition-colors" onclick="toggleAccordion(this)">
+<span class="font-headline-sm text-headline-sm text-on-surface text-[18px]">我可以隨處停車嗎？</span>
+<span class="material-symbols-outlined text-on-surface-variant transition-transform duration-300">expand_more</span>
+</button>
+<div class="px-md pb-sm hidden text-on-surface-variant font-body-sm text-body-sm">
+                        您必須將車輛停放在指定的合法機車停車格內。台南多數路段收費時間為 08:00 - 22:00。
+                    </div>
+</div>
+</div>
+<script>
+                function toggleAccordion(button) {
+                    const content = button.nextElementSibling;
+                    const icon = button.querySelector('.material-symbols-outlined');
+                    
+                    if (content.classList.contains('hidden')) {
+                        content.classList.remove('hidden');
+                        icon.style.transform = 'rotate(180deg)';
+                    } else {
+                        content.classList.add('hidden');
+                        icon.style.transform = 'rotate(0deg)';
+                    }
+                }
+            </script>
+</section>
+</div>
+    </main>
+    <footer class="bg-surface-container-low dark:bg-surface-dim font-body-sm text-body-sm border-t border-surface-container-highest dark:border-outline-variant w-full">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md px-md lg:px-xl py-lg w-full max-w-container-max mx-auto">
+<!-- Brand & Copyright -->
+<div class="flex flex-col space-y-sm">
+<span class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary-fixed">
+                    DT租車
+                </span>
+<p class="text-secondary dark:text-secondary-fixed opacity-80 hover:opacity-100 duration-200 transition-opacity">
+                    © 2018 DT 租車。
+                </p>
+</div>
+<!-- Links Column 1 -->
+<div class="flex flex-col space-y-sm">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed hover:underline transition-all" href="#">服務條款</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed hover:underline transition-all" href="#">隱私權政策</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed hover:underline transition-all" href="#">聯絡我們</a>
+</div>
+<!-- Links Column 2 -->
+<div class="flex flex-col space-y-sm">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed hover:underline transition-all" href="#">支援</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed hover:underline transition-all" href="#">永續發展</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed hover:underline transition-all" href="#">職涯發展</a>
+</div>
+</div>
+</footer>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("slide-in-left");
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll(".slide-card").forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.15}s`;
+        observer.observe(card);
+    });
+});
+</script>
+</body>
+</html>
